@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <style>
+      body{font-family: 'Dosis', sans-serif;}
+    </style>
+    <meta charset="utf-8">
+    <title>Clay Club Mailing List</title>
+  </head>
+  <body>
+
+
+    <!-- <div class="to_sub" style="
+    display: flex;
+     align-items: center;
+     justify-content: center;">
+      <h1>to subscribe:</h1>
+      <form class="" onsubmit="return toSubscribe();" method="">
+        <input id="sub_form" type="text" value="" style="
+        margin-left: 15px;
+        padding: 6px;">
+      </form>
+    </div> -->
+
+    <div class="to_sub"  style="
+    display: flex;
+     align-items: center;
+     justify-content: center;">
+      <h1>to Subscribe:</h1>
+      <form class="" onsubmit="return to_sub();" method="">
+        <input id="sub_form" type="text" value="" style="
+        margin-left: 15px;
+        padding: 6px;">
+      </form>
+    </div>
+
+
+    <div class="to_unsub"  style="
+    display: flex;
+     align-items: center;
+     justify-content: center;">
+      <h1>to UNsubscribe:</h1>
+      <form class="" onsubmit="return to_sub();" method="">
+        <input id="unsub_form" type="text" value="" style="
+        margin-left: 15px;
+        padding: 6px;">
+      </form>
+    </div>
+    <div class="facebook" style="
+    display: flex;
+     align-items: center;
+     justify-content: center;">
+      <h1>Check out our <a href="https://www.facebook.com/upsclay/?ref=br_rs" target="_blank">Facebook Page</a> for event information and direct messaging!</h1>
+    </div>
+    <script type="text/javascript">
+    function to_sub(){
+      let remove = document.getElementById("unsub_form")
+      let add = document.getElementById("sub_form")
+
+
+      console.log(remove.value)
+      console.log(add.value)
+
+      if (add.value) {
+        alert('subscribe ' + add.value)
+      } else if (remove.value) {
+        alert('unsubscribe ' + remove.value)
+      }
+      return false
+    }
+    </script>
+  </body>
+</html>
