@@ -48,9 +48,6 @@ app.post("/sub", function(req, res) {
       fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i] + "\n", function() {})
 
     }
-
-
-    // fs.writeFileSync(__dirname + '/list.txt', JSON.stringify(list_of_subscribers))
   }
 
 })
