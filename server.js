@@ -25,6 +25,10 @@ app.get("/list", function(req, res) {
   res.sendFile(__dirname + '/list.txt')
 })
 
+app.get("/favicon.png", function(req, res){
+  res.sendFile(__dirname + '/public/favicon.png')
+})
+
 app.post("/sub", function(req, res) {
   console.log('got sub request')
   console.log(req.body.data)
