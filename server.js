@@ -9,18 +9,18 @@ const port = 3443
 
 // set ssl certs in place
 const httpsOptions = {
-	cert : fs.readFileSync(path.join(__dirname, 'server/ssl', 'serv.crt')),
-	key : fs.readFileSync(path.join(__dirname, 'ssl', 'serv.pem')),
-	ca : [fs.readFileSync(path.join(__dirname, 'ssl',  'intermediate.pem'))]
+	cert : fs.readFileSync(path.join(__dirname, 'server', 'ssl', 'serv.crt')),
+	key : fs.readFileSync(path.join(__dirname, 'server','ssl', 'serv.pem')),
+	ca : [fs.readFileSync(path.join(__dirname, 'server','ssl',  'intermediate.pem'))]
 }
 
-console.log(fs.readFileSync(__dirname + '/list.txt').toString().split("\n"))
+console.log(fs.readFileSync(__dirname + '/server/list.txt').toString().split("\n"))
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", function(req, res){
-  res.sendFile(__dirname + "/../client/index.html")
+  res.sendFile(__dirname + "/client/index.html")
   // res.sendFile(path.resolve(__dirname, '/client/index.html'))
 
 })
@@ -30,14 +30,14 @@ app.get("/favicon.png", function(req, res){
 })
 
 app.get("/list", function(req, res) {
-  res.sendFile(__dirname + '/list.txt')
+  res.sendFile(__dirname + '/server/list.txt')
 })
 
 app.post("/sub", function(req, res) {
   console.log('got sub request')
   console.log(req.body.data)
   let list_of_subscribers = []
-  list_of_subscribers = fs.readFileSync(__dirname + '/list.txt').toString().split("\n")
+  list_of_subscribers = fs.readFileSync(__dirname + '/server/list.txt').toString().split("\n")
 
   if (list_of_subscribers.includes(req.body.data)) {
     console.log('this dude is already subscribed')
@@ -50,10 +50,10 @@ app.post("/sub", function(req, res) {
       }
     }
     console.log(list_of_subscribers)
-    fs.writeFile(__dirname + '/list.txt', '', function(){console.log('done')})
+    fs.writeFile(__dirname + '/server/list.txt', '', function(){console.log('done')})
 
     for (var i = 0; i < list_of_subscribers.length; i++) {
-      fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i] + "\n", function() {})
+      fs.appendFile(__dirname + '/server/list.txt', list_of_subscribers[i] + "\n", function() {})
     }
   }
 })
@@ -62,7 +62,7 @@ app.post("/unsub", function(req, res) {
   console.log('got an unsub request')
   console.log(req.body.data)
   let list_of_subscribers = []
-  list_of_subscribers = fs.readFileSync(__dirname + '/list.txt').toString().split("\n")
+  list_of_subscribers = fs.readFileSync(__dirname + '/server/list.txt').toString().split("\n")
 
   if (list_of_subscribers.includes(req.body.data)) {
     //we have found that the subscriber is in our list so unsubscribe and remove from list
@@ -73,13 +73,13 @@ app.post("/unsub", function(req, res) {
     }
     console.log(list_of_subscribers)
     //this line deletes the entire list on the disk!
-    fs.writeFile(__dirname + '/list.txt', '', function(){console.log('done')})
+    fs.writeFile(__dirname + '/server/list.txt', '', function(){console.log('done')})
     //takes the list and writes to file
     for (var i = 0; i < list_of_subscribers.length; i++) {
 			if (i == list_of_subscribers.length-1) {
-				fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i], function() {})
+				fs.appendFile(__dirname + '/server/list.txt', list_of_subscribers[i], function() {})
 			} else {
-				fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i] + "\n", function() {})
+				fs.appendFile(__dirname + '/server/list.txt', list_of_subscribers[i] + "\n", function() {})
 			}
     }
   }
