@@ -33,8 +33,12 @@ app.use(bodyParser.json());
 
 app.get("/", function(req, res){
   //res.sendFile(__dirname + "/../public/client/index.html")
-  res.sendFile(path.resolve('/home/ubuntu/code/https-app/client/index.html'))
+  res.sendFile(path.resolve('/home/ubuntu/code/clayapp/client/index.html'))
 
+})
+
+app.get("/favicon.png", function(req, res){
+  res.sendFile('/home/ubuntu/code/clayapp/public/favicon.png')
 })
 
 app.get("/list", function(req, res) {
