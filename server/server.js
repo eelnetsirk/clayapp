@@ -1,40 +1,26 @@
 let fs = require('fs')
 let https = require('https')
 let path = require('path')
+let express = require("express")
+let bodyParser = require("body-parser");
+let app = express()
 
 const port = 3443
 
+// set ssl certs in place
 const httpsOptions = {
 	cert : fs.readFileSync(path.join(__dirname, 'ssl', 'serv.crt')),
 	key : fs.readFileSync(path.join(__dirname, 'ssl', 'serv.pem')),
 	ca : [fs.readFileSync(path.join(__dirname, 'ssl',  'intermediate.pem'))]
 }
 
-
-
-
-let express = require("express")
-
-var bodyParser     =         require("body-parser");
-let app = express()
-
-
 console.log(fs.readFileSync(__dirname + '/list.txt').toString().split("\n"))
-// let readline = require('readline')
-
-// let rd = readline.createInterface({
-//   input : fs.createReadStream(__dirname + '/list.txt'),
-//   console:false
-// })
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", function(req, res){
-  //res.sendFile(__dirname + "/../public/client/index.html")
   res.sendFile(path.resolve('/home/ubuntu/code/https-app/client/index.html'))
-
 })
 
 app.get("/list", function(req, res) {
@@ -62,11 +48,10 @@ app.post("/sub", function(req, res) {
 
     for (var i = 0; i < list_of_subscribers.length; i++) {
       fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i] + "\n", function() {})
-
     }
   }
-
 })
+
 app.post("/unsub", function(req, res) {
   console.log('got an unsub request')
   console.log(req.body.data)
@@ -85,16 +70,15 @@ app.post("/unsub", function(req, res) {
     fs.writeFile(__dirname + '/list.txt', '', function(){console.log('done')})
     //takes the list and writes to file
     for (var i = 0; i < list_of_subscribers.length; i++) {
-      fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i] + "\n", function() {})
-
+			if (i == list_of_subscribers.length-1) {
+				fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i], function() {})
+			} else {
+				fs.appendFile(__dirname + '/list.txt', list_of_subscribers[i] + "\n", function() {})
+			}
     }
   }
 })
 
 https.createServer(httpsOptions, app).listen(port, function(){
-        console.log('listening')
+      console.log('listening')
 })
-
-//app.listen(8080,function(){
- // console.log("Listening on port 8080!")
-//})
