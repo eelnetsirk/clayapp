@@ -1,18 +1,20 @@
+let fs = require('fs')
+let https = require('https')
+let path = require('path')
 let express = require("express")
-
-var bodyParser     =         require("body-parser");
+let bodyParser = require("body-parser");
 let app = express()
 
-let fs = require('fs')
+const port = 3443
 
-console.log(fs.readFileSync(__dirname + '/list.txt').toString().split("\n"))
-// let readline = require('readline')
+// set ssl certs in place
+const httpsOptions = {
+	cert : fs.readFileSync(path.join(__dirname, 'server', 'ssl', 'serv.crt')),
+	key : fs.readFileSync(path.join(__dirname, 'server','ssl', 'serv.pem')),
+	ca : [fs.readFileSync(path.join(__dirname, 'server','ssl',  'intermediate.pem'))]
+}
 
-// let rd = readline.createInterface({
-//   input : fs.createReadStream(__dirname + '/list.txt'),
-//   console:false
-// })
-
+console.log(fs.readFileSync(__dirname + '/server/list.txt').toString().split("\n"))
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

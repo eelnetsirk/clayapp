@@ -9,7 +9,7 @@ const port = 3443
 
 // set ssl certs in place
 const httpsOptions = {
-	cert : fs.readFileSync(path.join(__dirname, 'ssl', 'serv.crt')),
+	cert : fs.readFileSync(path.join(__dirname, 'server/ssl', 'serv.crt')),
 	key : fs.readFileSync(path.join(__dirname, 'ssl', 'serv.pem')),
 	ca : [fs.readFileSync(path.join(__dirname, 'ssl',  'intermediate.pem'))]
 }
@@ -20,13 +20,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", function(req, res){
-  //res.sendFile(__dirname + "/../public/client/index.html")
-  res.sendFile(path.resolve('/home/ubuntu/code/clayapp/client/index.html'))
+  res.sendFile(__dirname + "/../client/index.html")
+  // res.sendFile(path.resolve(__dirname, '/client/index.html'))
 
 })
 
 app.get("/favicon.png", function(req, res){
-  res.sendFile('/home/ubuntu/code/clayapp/public/favicon.png')
+  res.sendFile(__dirname + '/favicon.png')
 })
 
 app.get("/list", function(req, res) {
