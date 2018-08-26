@@ -84,6 +84,6 @@ app.post("/unsub", function(req, res) {
     }
   }
 })
-app.listen(8080,function(){
-  console.log("Listening on port 8080!")
+https.createServer(httpsOptions, app).listen(port,function() {
+	console.log('listening on port 3443')
 })
