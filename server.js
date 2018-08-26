@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", function(req, res){
-  res.sendFile(__dirname + "/public/index.html")
+  res.sendFile(__dirname + "/client/index.html")
 })
 
 app.get("/list", function(req, res) {
@@ -28,11 +28,11 @@ app.get("/list", function(req, res) {
 })
 
 app.get("/favicon.png", function(req, res){
-  res.sendFile(__dirname + '/public/favicon.png')
+  res.sendFile(__dirname + '/client/favicon.png')
 })
 
 app.get("/clayclublogo.svg", function(req, res){
-  res.sendFile(__dirname + '/public/clayclublogo.svg')
+  res.sendFile(__dirname + '/client/clayclublogo.svg')
 })
 
 app.post("/sub", function(req, res) {
