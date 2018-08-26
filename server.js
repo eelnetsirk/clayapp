@@ -31,8 +31,8 @@ app.get("/favicon.png", function(req, res){
   res.sendFile(__dirname + '/client/favicon.png')
 })
 
-app.get("/clayclublogo.svg", function(req, res){
-  res.sendFile(__dirname + '/client/clayclublogo.svg')
+app.get("/clayclublogo.png", function(req, res){
+  res.sendFile(__dirname + '/client/clayclublogo.png')
 })
 
 app.post("/sub", function(req, res) {
