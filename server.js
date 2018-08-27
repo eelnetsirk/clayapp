@@ -35,6 +35,16 @@ app.get("/clayclublogo.png", function(req, res){
   res.sendFile(__dirname + '/client/clayclublogo.png')
 })
 
+app.get('/materialize.js', function(req, res){
+	res.sendFile(__dirname + '/node_modules/materialize-css/dist/js/materialize.js')
+})
+app.get('/materialize.css', function(req, res){
+	res.sendFile(__dirname + '/node_modules/materialize-css/dist/css/materialize.css')
+})
+app.get('/jquery.js', function(req, res) {
+	res.sendFile(__dirname + '/node_modules/jquery/dist/jquery.js')
+})
+
 app.post("/sub", function(req, res) {
   console.log('got sub request')
   console.log(req.body.data)
@@ -43,6 +53,9 @@ app.post("/sub", function(req, res) {
 
   if (list_of_subscribers.includes(req.body.data)) {
     console.log('this dude is already subscribed')
+		// res.send('already subscribed').then()
+		// res.json(res => res.json()).then(res => {console.log(res.message)})
+		res.send('hello')
   } else if (!list_of_subscribers.includes(req.body.data)) {
     list_of_subscribers.push(req.body.data)
 

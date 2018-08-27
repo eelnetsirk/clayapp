@@ -8,9 +8,14 @@
     <meta charset="utf-8">
     <title>Clay Club Mailing List</title>
     <link rel = "shortcut icon" type = "image/png" href = "/favicon.png">
+    <link rel="stylesheet" href="/materialize.css">
+    <script type="text/javascript" src="/jquery.js"></script>
+
   </head>
   <body>
+    <script type="text/javascript" src="/materialize.js"></script>
     <!--header and logo-->
+
     <div class = "header" style = "
       display: flex;
       align-items: center;
@@ -65,23 +70,33 @@
 
       console.log(remove.value)
       console.log(add.value)
-
+      // Materialize.toast
       if (add.value) {
-        alert('subscribe ' + add.value)
+// Materialize.toast({inDuration : 300, outDuration : 300})
+        // M.AutoInit();
+        // alert('subscribe ' + add.value)
+        Materialize.toast('subscribe ' + add.value)
+
+
+        // M.toast({html: 'I am a toast!'})
         var xhr = new XMLHttpRequest()
         xhr.open("POST", '/sub', true)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(JSON.stringify({
           data : add.value
         }))
+        add.value = ''
       } else if (remove.value) {
-        alert('unsubscribe ' + remove.value)
+        // alert('unsubscribe ' + remove.value)
+        Materialize.toast('unsubscribe ' + remove.value)
+
         var xhr = new XMLHttpRequest()
         xhr.open("POST", '/unsub', true)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(JSON.stringify({
           data : remove.value
         }))
+        remove.value = ''
       }
       return false
     }
