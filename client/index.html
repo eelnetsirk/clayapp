@@ -71,6 +71,12 @@
         if (!add.value.includes("@pugetsound.edu")) {
           console.log('need puget sound addr')
           Materialize.toast('error : @pugetsound.edu')
+          var toastElement =  document.querySelector('.toast')
+          setTimeout(function() {
+            for (x in Materialize.Toast._toasts) {
+              Materialize.Toast._toasts[x].remove()
+            }
+          }, 4000)
 
         } else  {
           logo.classList.remove("animated")
