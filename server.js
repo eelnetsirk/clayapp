@@ -35,6 +35,10 @@ app.get("/clayclublogo.png", function(req, res){
   res.sendFile(__dirname + '/client/clayclublogo.png')
 })
 
+app.get("/porcelain.png", function(req, res){
+  res.sendFile(__dirname + '/client/porcelain.png')
+})
+
 app.get('/materialize.js', function(req, res){
 	res.sendFile(__dirname + '/node_modules/materialize-css/dist/js/materialize.js')
 })
