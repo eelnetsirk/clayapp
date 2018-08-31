@@ -9,19 +9,18 @@
     <title>Clay Club Mailing List</title>
     <link rel = "shortcut icon" type = "image/png" href = "/favicon.png">
     <link rel="stylesheet" href="/materialize.css">
+    <link rel="stylesheet" href="/animate.css">
     <script type="text/javascript" src="/jquery.js"></script>
 
   </head>
   <body>
     <script type="text/javascript" src="/materialize.js"></script>
-    <!--header and logo-->
-
     <div class = "header" style = "
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;">
-      <img src="/porcelain.png" style="height:150px;">
+      <img id="logo"src="/porcelain.png" class="animated bounceInDown"style="height:150px;">
       <p style = "font-size: 300%;">UPS Clay Club Mailing List</p>
     </div>
     <!--to subscribe div-->
@@ -64,28 +63,42 @@
     </div>
     <script type="text/javascript">
     function to_sub(){
+      let logo = document.getElementById('logo')
       let remove = document.getElementById("unsub_form")
       let add = document.getElementById("sub_form")
 
-
-      console.log(remove.value)
-      console.log(add.value)
-      // Materialize.toast
       if (add.value) {
-// Materialize.toast({inDuration : 300, outDuration : 300})
-        // M.AutoInit();
-        // alert('subscribe ' + add.value)
-        Materialize.toast('subscribe ' + add.value)
+        if (!add.value.includes("@pugetsound.edu")) {
+          console.log('need puget sound addr')
+          Materialize.toast('error : @pugetsound.edu')
 
+        } else  {
+          logo.classList.remove("animated")
+          logo.classList.remove("bounceInDown")
+          setTimeout(function() {
+            logo.classList.add("animated")
+            logo.classList.add("bounce")
+          }, 500)
+          setTimeout(function() {
+            logo.classList.remove("animated")
+            logo.classList.remove("bounce")
+          }, 2500)
+          Materialize.toast('subscribe ' + add.value)
+          var toastElement =  document.querySelector('.toast')
+          setTimeout(function() {
+            for (x in Materialize.Toast._toasts) {
+              Materialize.Toast._toasts[x].remove()
+            }
+          }, 4000)
 
-        // M.toast({html: 'I am a toast!'})
-        var xhr = new XMLHttpRequest()
-        xhr.open("POST", '/sub', true)
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.send(JSON.stringify({
-          data : add.value
-        }))
-        add.value = ''
+          var xhr = new XMLHttpRequest()
+          xhr.open("POST", '/sub', true)
+          xhr.setRequestHeader('Content-Type', 'application/json')
+          xhr.send(JSON.stringify({
+            data : add.value
+          }))
+          add.value = ''
+        }
       } else if (remove.value) {
         // alert('unsubscribe ' + remove.value)
         Materialize.toast('unsubscribe ' + remove.value)

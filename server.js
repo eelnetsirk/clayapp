@@ -45,6 +45,11 @@ app.get('/materialize.js', function(req, res){
 app.get('/materialize.css', function(req, res){
 	res.sendFile(__dirname + '/node_modules/materialize-css/dist/css/materialize.css')
 })
+
+app.get('/animate.css', function(req, res) {
+	res.sendFile(__dirname + '/client/css/animate.css')
+})
+
 app.get('/jquery.js', function(req, res) {
 	res.sendFile(__dirname + '/node_modules/jquery/dist/jquery.js')
 })
